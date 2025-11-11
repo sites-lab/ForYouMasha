@@ -19,18 +19,35 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             text-align: center;
-            max-width: 500px;
-            width: 90%;
+            max-width: 95%;
+            width: 500px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .hearts {
@@ -46,19 +63,22 @@
         .heart {
             position: absolute;
             font-size: 20px;
-            animation: float 6s ease-in-out infinite;
+            animation: float 8s ease-in-out infinite;
             opacity: 0.7;
+            user-select: none;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-30px) translateX(10px) rotate(5deg); }
+            50% { transform: translateY(-15px) translateX(-10px) rotate(-5deg); }
+            75% { transform: translateY(-25px) translateX(5px) rotate(3deg); }
         }
 
         h1 {
             color: white;
-            margin-bottom: 30px;
-            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-size: clamp(1.8em, 5vw, 2.5em);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -73,12 +93,13 @@
             border: none;
             border-radius: 50px;
             padding: 15px 25px;
-            font-size: 18px;
+            font-size: 16px;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            -webkit-appearance: none;
         }
 
         .code-input:focus {
@@ -87,25 +108,31 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .submit-btn {
+        .btn {
             background: linear-gradient(45deg, #ff6b6b, #ee5a52);
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 15px 40px;
-            font-size: 18px;
+            padding: 15px 30px;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin: 10px 5px;
+            min-width: 140px;
         }
 
-        .submit-btn:hover {
+        .btn:hover, .btn:active {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
 
+        .btn-secondary {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        }
+
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         .content {
@@ -119,9 +146,9 @@
 
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
         }
 
         .photo-item {
@@ -129,6 +156,7 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            aspect-ratio: 1;
         }
 
         .photo-item:hover {
@@ -137,7 +165,7 @@
 
         .photo-item img, .photo-item video {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
             display: block;
         }
@@ -146,7 +174,7 @@
             background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             padding: 20px;
-            margin: 20px 0;
+            margin: 15px 0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
@@ -168,36 +196,143 @@
             margin-top: 10px;
             font-style: italic;
         }
+
+        /* Стили для мини-игры */
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(0deg);
+        }
+
+        .memory-card .emoji {
+            backface-visibility: hidden;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* Навигация */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+                margin: 10px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-width: 120px;
+            }
+            
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .memory-game {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Салют */
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
     </style>
 </head>
 <body>
     <div class="hearts" id="hearts"></div>
     
-    <div class="container">
-        <!-- Экран ввода кода -->
-        <div id="loginScreen">
+    <!-- Экран ввода кода -->
+    <div id="screen1" class="screen active">
+        <div class="container">
             <h1>💝 Для самой особенной 💝</h1>
             <p style="color: white; margin-bottom: 20px;">Введи наш особенный код:</p>
-            <input type="password" class="code-input" id="codeInput" placeholder="8 цифр нашей истории...">
-            <button class="submit-btn" onclick="checkCode()">Открыть сюрприз</button>
+            <input type="password" class="code-input" id="codeInput" placeholder="8 цифр нашей истории..." inputmode="numeric">
+            <button class="btn" onclick="checkCode()">Открыть сюрприз</button>
             <div class="hint">Подсказка: важная дата в цифрах</div>
             <div id="error" class="error hidden">Неверный код, попробуй ещё раз 💕</div>
         </div>
+    </div>
 
-        <!-- Основной контент -->
-        <div id="mainContent" class="hidden content">
+    <!-- Главная страница -->
+    <div id="screen2" class="screen">
+        <div class="container">
             <h1>С Днём Рождения! 🎂</h1>
             
             <div class="message">
                 <h2>Моя любимая 💖</h2>
-                <p>Ты - самое прекрасное, что случилось в моей жизни! В этот особенный день я хочу сказать тебе...</p>
-                <!-- Тут ты можешь написать своё поздравление -->
-                <p>Каждый день с тобой - это подарок судьбы! 🥰</p>
+                <p>Ты - самое прекрасное, что случилось в моей жизни! Этот сайт - маленькое воплощение моих чувств к тебе.</p>
             </div>
 
-            <!-- Галерея фото -->
+            <div class="progress-bar">
+                <div class="progress" id="globalProgress" style="width: 10%;"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn" onclick="showScreen('screen3')">Наши фото 📸</button>
+                <button class="btn" onclick="showScreen('screen4')">Игра для нас 🎮</button>
+                <button class="btn" onclick="showScreen('screen5')">Моё послание 💌</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Галерея фото -->
+    <div id="screen3" class="screen">
+        <div class="container">
+            <h1>Наши воспоминания 📸</h1>
+            
             <div class="photo-grid">
-                <!-- Замени src на ссылки на твои фото -->
                 <div class="photo-item">
                     <img src="https://example.com/photo1.jpg" alt="Наше фото 1" onerror="this.style.display='none'">
                 </div>
@@ -207,12 +342,13 @@
                 <div class="photo-item">
                     <img src="https://example.com/photo3.jpg" alt="Наше фото 3" onerror="this.style.display='none'">
                 </div>
+                <div class="photo-item">
+                    <img src="https://example.com/photo4.jpg" alt="Наше фото 4" onerror="this.style.display='none'">
+                </div>
             </div>
 
-            <!-- Видео -->
-            <div style="margin: 30px 0;">
+            <div style="margin: 20px 0;">
                 <div class="photo-item">
-                    <!-- Замени src на ссылку на твоё видео -->
                     <video controls style="width: 100%; border-radius: 15px;">
                         <source src="https://example.com/video.mp4" type="video/mp4">
                         Твой браузер не поддерживает видео.
@@ -220,33 +356,133 @@
                 </div>
             </div>
 
-            <div class="message">
-                <p>С каждым днём я люблю тебя всё больше! 💕</p>
-                <p>Твой программист 💻❤️</p>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showScreen('screen2')">← Назад</button>
+                <button class="btn" onclick="showScreen('screen4')">Дальше →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Мини-игра -->
+    <div id="screen4" class="screen">
+        <div class="container">
+            <h1>Найди пару сердец 💞</h1>
+            
+            <div class="game-stats">
+                <span>Ходы: <span id="moves">0</span></span>
+                <span>Найдено: <span id="found">0</span>/6</span>
             </div>
 
-            <!-- Секретное сообщение про код -->
-            <div class="message" style="background: rgba(255, 255, 255, 0.8);">
-                <p style="font-size: 14px; color: #666;">P.S. Код 15012009 я выбрал не случайно... эта дата навсегда в моём сердце 💝</p>
+            <div class="memory-game" id="memoryGame">
+                <!-- Карточки генерируются через JavaScript -->
+            </div>
+
+            <div id="gameMessage" class="message hidden">
+                <h3>Ура! Ты справилась! 🎉</h3>
+                <p>Ты нашла все пары! Ты самая внимательная! 💖</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showScreen('screen3')">← Назад</button>
+                <button class="btn" onclick="showScreen('screen5')">Дальше →</button>
+                <button class="btn" onclick="resetGame()">🔄 Заново</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Финальное послание -->
+    <div id="screen5" class="screen">
+        <div class="container">
+            <h1>Моё сердце твоё 💝</h1>
+            
+            <div class="message">
+                <h2>Для моей принцессы 👑</h2>
+                <p>Каждый миг с тобой - это сказка. Ты делаешь меня самым счастливым человеком на свете! </p>
+                <p>Спасибо тебе за всё: за твою улыбку, за поддержку, за любовь... 🥰</p>
+            </div>
+
+            <div class="message">
+                <h3>P.S. Код 15012009</h3>
+                <p style="font-size: 14px; color: #666;">Эта дата навсегда в моём сердце. Она символизирует начало чего-то прекрасного... 💫</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showScreen('screen4')">← Назад</button>
+                <button class="btn" onclick="createFireworks(); showScreen('screen6')">Зажечь салют! 🎆</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Финальный экран с салютом -->
+    <div id="screen6" class="screen">
+        <div class="container">
+            <h1>🎉 С Днём Рождения! 🎉</h1>
+            
+            <div class="message">
+                <h2>Люблю тебя больше жизни! 💖</h2>
+                <p>Пусть этот день будет наполнен счастьем, улыбками и любовью!</p>
+                <p>Ты заслуживаешь всего самого лучшего! 🌟</p>
+            </div>
+
+            <div style="font-size: 48px; margin: 20px 0;">
+                💝🎂🎁✨🥳
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn" onclick="showScreen('screen2')">⟳ Начать сначала</button>
             </div>
         </div>
     </div>
 
     <script>
+        let currentScreen = 'screen1';
+        let gameCompleted = false;
+
         // Создаем плавающие сердца
         function createHearts() {
             const heartsContainer = document.getElementById('hearts');
-            const hearts = ['💖', '💝', '💕', '💞', '💓', '💗', '🥰', '😍'];
+            const hearts = ['💖', '💝', '💕', '💞', '💓', '💗', '🥰', '😍', '❤️', '💘'];
             
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 30; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 6 + 's';
-                heart.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 12) + 'px';
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
                 heartsContainer.appendChild(heart);
             }
+        }
+
+        // Показ экрана
+        function showScreen(screenId) {
+            document.getElementById(currentScreen).classList.remove('active');
+            document.getElementById(screenId).classList.add('active');
+            currentScreen = screenId;
+            
+            // Обновляем прогресс
+            updateProgress();
+            
+            // Запускаем салют на финальном экране
+            if (screenId === 'screen6') {
+                createFireworks();
+                setInterval(createFireworks, 2000);
+            }
+            
+            // Инициализируем игру если нужно
+            if (screenId === 'screen4' && !gameCompleted) {
+                initMemoryGame();
+            }
+        }
+
+        // Обновление прогресс-бара
+        function updateProgress() {
+            const screens = ['screen2', 'screen3', 'screen4', 'screen5', 'screen6'];
+            const currentIndex = screens.indexOf(currentScreen);
+            const progress = ((currentIndex + 1) / screens.length) * 100;
+            document.getElementById('globalProgress').style.width = progress + '%';
         }
 
         // Проверка кода
@@ -254,17 +490,103 @@
             const code = document.getElementById('codeInput').value;
             const error = document.getElementById('error');
             
-            // Код: 15012009
             if (code === '15012009') { 
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('mainContent').classList.remove('hidden');
-                // Добавляем больше сердец при успешном входе
-                createHearts();
-                createHearts();
+                createFireworks();
+                setTimeout(() => {
+                    showScreen('screen2');
+                }, 1500);
             } else {
                 error.classList.remove('hidden');
                 setTimeout(() => error.classList.add('hidden'), 3000);
             }
+        }
+
+        // Салют
+        function createFireworks() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#f368e0'];
+            const container = document.getElementById('hearts');
+            
+            for (let i = 0; i < 30; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.width = '6px';
+                firework.style.height = '6px';
+                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                firework.style.borderRadius = '50%';
+                firework.style.left = Math.random() * 100 + 'vw';
+                firework.style.top = Math.random() * 100 + 'vh';
+                firework.style.animation = `firework 1.5s ease-out forwards`;
+                container.appendChild(firework);
+                
+                setTimeout(() => firework.remove(), 1500);
+            }
+        }
+
+        // Мини-игра "Найди пару"
+        function initMemoryGame() {
+            const emojis = ['💖', '💝', '💕', '💞', '💓', '💗'];
+            const cards = [...emojis, ...emojis];
+            
+            // Перемешиваем карточки
+            cards.sort(() => Math.random() - 0.5);
+            
+            const gameContainer = document.getElementById('memoryGame');
+            gameContainer.innerHTML = '';
+            
+            let flippedCards = [];
+            let moves = 0;
+            let foundPairs = 0;
+            
+            cards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.innerHTML = `<div class="emoji">${emoji}</div>`;
+                card.dataset.emoji = emoji;
+                
+                card.addEventListener('click', () => {
+                    if (flippedCards.length < 2 && !card.classList.contains('flipped')) {
+                        card.classList.add('flipped');
+                        flippedCards.push(card);
+                        
+                        if (flippedCards.length === 2) {
+                            moves++;
+                            document.getElementById('moves').textContent = moves;
+                            
+                            if (flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji) {
+                                // Найдена пара
+                                foundPairs++;
+                                document.getElementById('found').textContent = foundPairs;
+                                flippedCards = [];
+                                
+                                if (foundPairs === 6) {
+                                    gameCompleted = true;
+                                    document.getElementById('gameMessage').classList.remove('hidden');
+                                    createFireworks();
+                                }
+                            } else {
+                                // Не совпали
+                                setTimeout(() => {
+                                    flippedCards.forEach(flippedCard => {
+                                        flippedCard.classList.remove('flipped');
+                                    });
+                                    flippedCards = [];
+                                }, 1000);
+                            }
+                        }
+                    }
+                });
+                
+                gameContainer.appendChild(card);
+            });
+            
+            document.getElementById('moves').textContent = '0';
+            document.getElementById('found').textContent = '0';
+            document.getElementById('gameMessage').classList.add('hidden');
+        }
+
+        function resetGame() {
+            gameCompleted = false;
+            initMemoryGame();
         }
 
         // Позволяем нажимать Enter для ввода кода
@@ -274,36 +596,16 @@
             }
         });
 
-        // Создаем сердца при загрузке
+        // Инициализация
         createHearts();
-
-        // Добавляем красивый салют при успешном вводе кода
-        function createFireworks() {
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'];
-            const container = document.getElementById('hearts');
-            
-            for (let i = 0; i < 50; i++) {
-                const firework = document.createElement('div');
-                firework.style.position = 'fixed';
-                firework.style.width = '4px';
-                firework.style.height = '4px';
-                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                firework.style.borderRadius = '50%';
-                firework.style.left = Math.random() * 100 + 'vw';
-                firework.style.top = Math.random() * 100 + 'vh';
-                firework.style.animation = `firework 1s ease-out forwards`;
-                container.appendChild(firework);
-                
-                setTimeout(() => firework.remove(), 1000);
-            }
-        }
-
+        
         // Добавляем CSS для салюта
         const style = document.createElement('style');
         style.textContent = `
             @keyframes firework {
-                0% { transform: translate(0, 0) scale(1); opacity: 1; }
-                100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(0); opacity: 0; }
+                0% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(3); opacity: 0.7; }
+                100% { transform: scale(1); opacity: 0; }
             }
         `;
         document.head.appendChild(style);
