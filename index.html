@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебя 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+            to { text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.5); }
+        }
+
+        .code-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 18px;
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .code-input:focus {
+            outline: none;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .content {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .photo-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-item img, .photo-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .error {
+            color: #ff6b6b;
+            margin-top: 10px;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .hint {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <!-- Экран ввода кода -->
+        <div id="loginScreen">
+            <h1>💝 Для самой особенной 💝</h1>
+            <p style="color: white; margin-bottom: 20px;">Введи наш особенный код:</p>
+            <input type="password" class="code-input" id="codeInput" placeholder="8 цифр нашей истории...">
+            <button class="submit-btn" onclick="checkCode()">Открыть сюрприз</button>
+            <div class="hint">Подсказка: важная дата в цифрах</div>
+            <div id="error" class="error hidden">Неверный код, попробуй ещё раз 💕</div>
+        </div>
+
+        <!-- Основной контент -->
+        <div id="mainContent" class="hidden content">
+            <h1>С Днём Рождения! 🎂</h1>
+            
+            <div class="message">
+                <h2>Моя любимая 💖</h2>
+                <p>Ты - самое прекрасное, что случилось в моей жизни! В этот особенный день я хочу сказать тебе...</p>
+                <!-- Тут ты можешь написать своё поздравление -->
+                <p>Каждый день с тобой - это подарок судьбы! 🥰</p>
+            </div>
+
+            <!-- Галерея фото -->
+            <div class="photo-grid">
+                <!-- Замени src на ссылки на твои фото -->
+                <div class="photo-item">
+                    <img src="https://example.com/photo1.jpg" alt="Наше фото 1" onerror="this.style.display='none'">
+                </div>
+                <div class="photo-item">
+                    <img src="https://example.com/photo2.jpg" alt="Наше фото 2" onerror="this.style.display='none'">
+                </div>
+                <div class="photo-item">
+                    <img src="https://example.com/photo3.jpg" alt="Наше фото 3" onerror="this.style.display='none'">
+                </div>
+            </div>
+
+            <!-- Видео -->
+            <div style="margin: 30px 0;">
+                <div class="photo-item">
+                    <!-- Замени src на ссылку на твоё видео -->
+                    <video controls style="width: 100%; border-radius: 15px;">
+                        <source src="https://example.com/video.mp4" type="video/mp4">
+                        Твой браузер не поддерживает видео.
+                    </video>
+                </div>
+            </div>
+
+            <div class="message">
+                <p>С каждым днём я люблю тебя всё больше! 💕</p>
+                <p>Твой программист 💻❤️</p>
+            </div>
+
+            <!-- Секретное сообщение про код -->
+            <div class="message" style="background: rgba(255, 255, 255, 0.8);">
+                <p style="font-size: 14px; color: #666;">P.S. Код 15012009 я выбрал не случайно... эта дата навсегда в моём сердце 💝</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создаем плавающие сердца
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const hearts = ['💖', '💝', '💕', '💞', '💓', '💗', '🥰', '😍'];
+            
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Проверка кода
+        function checkCode() {
+            const code = document.getElementById('codeInput').value;
+            const error = document.getElementById('error');
+            
+            // Код: 15012009
+            if (code === '15012009') { 
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainContent').classList.remove('hidden');
+                // Добавляем больше сердец при успешном входе
+                createHearts();
+                createHearts();
+            } else {
+                error.classList.remove('hidden');
+                setTimeout(() => error.classList.add('hidden'), 3000);
+            }
+        }
+
+        // Позволяем нажимать Enter для ввода кода
+        document.getElementById('codeInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkCode();
+            }
+        });
+
+        // Создаем сердца при загрузке
+        createHearts();
+
+        // Добавляем красивый салют при успешном вводе кода
+        function createFireworks() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'];
+            const container = document.getElementById('hearts');
+            
+            for (let i = 0; i < 50; i++) {
+                const firework = document.createElement('div');
+                firework.style.position = 'fixed';
+                firework.style.width = '4px';
+                firework.style.height = '4px';
+                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                firework.style.borderRadius = '50%';
+                firework.style.left = Math.random() * 100 + 'vw';
+                firework.style.top = Math.random() * 100 + 'vh';
+                firework.style.animation = `firework 1s ease-out forwards`;
+                container.appendChild(firework);
+                
+                setTimeout(() => firework.remove(), 1000);
+            }
+        }
+
+        // Добавляем CSS для салюта
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes firework {
+                0% { transform: translate(0, 0) scale(1); opacity: 1; }
+                100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(0); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
