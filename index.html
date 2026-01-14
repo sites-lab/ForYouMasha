@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Для тебя 💝</title>
     <style>
         * {
@@ -21,7 +21,8 @@
             overflow-x: hidden;
             touch-action: manipulation;
             position: relative;
-            padding: 10px;
+            padding: 8px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body::before {
@@ -49,7 +50,9 @@
             display: none;
             width: 100%;
             min-height: 100vh;
-            padding: 15px;
+            padding: 8px;
+            align-items: center;
+            justify-content: center;
         }
 
         .active {
@@ -63,8 +66,8 @@
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 20px;
+            border-radius: 18px;
+            padding: 18px;
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -74,11 +77,27 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             animation: containerFloat 3s ease-in-out infinite;
             margin: 0 auto;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
         }
 
         @keyframes containerFloat {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-5px); }
         }
 
         .hearts {
@@ -115,8 +134,8 @@
 
         h1 {
             color: white;
-            margin-bottom: 20px;
-            font-size: 1.6em;
+            margin-bottom: 16px;
+            font-size: 1.5em;
             text-shadow: 
                 0 2px 10px rgba(0, 0, 0, 0.3),
                 0 0 20px rgba(255, 255, 255, 0.2);
@@ -125,7 +144,8 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: titleGlow 3s ease-in-out infinite alternate;
-            padding: 0 10px;
+            padding: 0 8px;
+            line-height: 1.3;
         }
 
         @keyframes titleGlow {
@@ -138,15 +158,15 @@
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 16px 20px;
-            font-size: 15px;
+            padding: 14px 16px;
+            font-size: 14.5px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 
                 0 4px 15px rgba(255, 107, 107, 0.4),
                 inset 0 -2px 0 rgba(0,0,0,0.1);
-            margin: 8px 0;
+            margin: 6px 0;
             width: 100%;
             position: relative;
             overflow: hidden;
@@ -154,7 +174,18 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            min-height: 52px;
+            min-height: 48px;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn span {
+            font-size: 16px;
+            min-width: 22px;
+            display: inline-block;
         }
 
         .btn::before {
@@ -173,7 +204,7 @@
         }
 
         .btn:hover, .btn:active {
-            transform: translateY(-3px) scale(1.02);
+            transform: translateY(-2px) scale(1.02);
             box-shadow: 
                 0 8px 20px rgba(255, 107, 107, 0.5),
                 inset 0 -2px 0 rgba(0,0,0,0.1);
@@ -220,7 +251,7 @@
         @keyframes slideUp {
             from { 
                 opacity: 0; 
-                transform: translateY(30px) scale(0.95); 
+                transform: translateY(20px) scale(0.95); 
             }
             to { 
                 opacity: 1; 
@@ -230,11 +261,11 @@
 
         /* Большая фото-секция */
         .main-photo-container {
-            margin: 20px 0;
-            border-radius: 16px;
+            margin: 15px 0;
+            border-radius: 14px;
             overflow: hidden;
             box-shadow: 
-                0 8px 20px rgba(0, 0, 0, 0.25),
+                0 6px 18px rgba(0, 0, 0, 0.25),
                 0 0 0 2px rgba(255, 255, 255, 0.2);
             transition: all 0.4s ease;
         }
@@ -242,13 +273,13 @@
         .main-photo-container:hover {
             transform: rotateY(3deg) rotateX(1deg);
             box-shadow: 
-                0 12px 30px rgba(0, 0, 0, 0.35),
+                0 10px 25px rgba(0, 0, 0, 0.35),
                 0 0 0 2px rgba(255, 255, 255, 0.3);
         }
 
         .main-photo {
             width: 100%;
-            height: 220px;
+            height: 200px;
             object-fit: cover;
             display: block;
             transition: transform 0.6s ease;
@@ -259,28 +290,28 @@
         }
 
         .main-video {
-            margin: 20px 0;
-            border-radius: 16px;
+            margin: 15px 0;
+            border-radius: 14px;
             overflow: hidden;
             box-shadow: 
-                0 8px 20px rgba(0, 0, 0, 0.25),
+                0 6px 18px rgba(0, 0, 0, 0.25),
                 0 0 0 2px rgba(255, 255, 255, 0.2);
             background: #000;
         }
 
         .main-video video {
             width: 100%;
-            height: 180px;
+            height: 170px;
             object-fit: cover;
-            border-radius: 16px;
+            border-radius: 14px;
             display: block;
         }
 
         .message {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 16px 0;
+            border-radius: 14px;
+            padding: 16px;
+            margin: 12px 0;
             box-shadow: 
                 0 4px 15px rgba(0, 0, 0, 0.12),
                 inset 0 1px 0 rgba(255,255,255,0.8);
@@ -300,7 +331,7 @@
 
         .message h2 {
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-size: 1.2em;
             line-height: 1.3;
         }
@@ -308,15 +339,15 @@
         .message p {
             color: #555;
             line-height: 1.5;
-            font-size: 15px;
-            margin-bottom: 8px;
+            font-size: 14px;
+            margin-bottom: 6px;
         }
 
         .welcome-message {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 16px 0;
+            border-radius: 14px;
+            padding: 16px;
+            margin: 12px 0;
             box-shadow: 
                 0 4px 15px rgba(0, 0, 0, 0.12),
                 inset 0 1px 0 rgba(255,255,255,0.8);
@@ -325,15 +356,15 @@
 
         .welcome-message h2 {
             color: #ff6b6b;
-            margin-bottom: 12px;
-            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-size: 1.2em;
         }
 
         .welcome-message p {
             color: #555;
             line-height: 1.5;
-            font-size: 15px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
         /* Улучшенная мини-игра */
@@ -341,13 +372,13 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .memory-card {
             aspect-ratio: 1;
             background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -358,6 +389,7 @@
             box-shadow: 
                 0 3px 10px rgba(0, 0, 0, 0.15),
                 inset 0 -2px 5px rgba(0,0,0,0.1);
+            min-height: 75px;
         }
 
         .memory-card::before {
@@ -396,28 +428,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             color: white;
-            font-size: 14px;
+            font-size: 13px;
             background: rgba(255, 255, 255, 0.1);
-            padding: 10px 16px;
+            padding: 8px 12px;
             border-radius: 50px;
             backdrop-filter: blur(10px);
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
         .game-stats div {
             flex: 1;
-            min-width: 80px;
+            min-width: 70px;
             text-align: center;
+            padding: 4px;
         }
 
         .game-stats span {
             font-weight: 600;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
             display: inline-block;
-            min-width: 20px;
+            min-width: 18px;
         }
 
         #gameMessage {
@@ -433,9 +466,26 @@
         .nav-buttons {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 16px;
             width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .nav-buttons::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .nav-buttons::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .nav-buttons::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
         }
 
         /* Салют */
@@ -471,7 +521,7 @@
             height: 6px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 3px;
-            margin: 20px 0;
+            margin: 15px 0;
             overflow: hidden;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
@@ -524,7 +574,7 @@
         /* Запасное изображение */
         .backup-image {
             width: 100%;
-            height: 220px;
+            height: 200px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
             flex-direction: column;
@@ -532,19 +582,20 @@
             align-items: center;
             color: white;
             text-align: center;
-            padding: 20px;
-            border-radius: 16px;
+            padding: 16px;
+            border-radius: 14px;
         }
         
         .backup-image span {
-            font-size: 36px;
-            margin-bottom: 10px;
+            font-size: 34px;
+            margin-bottom: 8px;
         }
         
         .backup-image p {
             font-size: 14px;
             opacity: 0.9;
             margin: 4px 0;
+            line-height: 1.4;
         }
         
         /* Стили для списка */
@@ -552,20 +603,20 @@
             text-align: left;
             color: #555;
             line-height: 1.5;
-            padding-left: 20px;
-            margin: 10px 0;
-            font-size: 14px;
+            padding-left: 18px;
+            margin: 8px 0;
+            font-size: 13.5px;
         }
         
         .message li {
-            margin-bottom: 6px;
-            padding-left: 8px;
+            margin-bottom: 5px;
+            padding-left: 6px;
         }
         
         /* Эмодзи анимация */
         .emoji-animation {
-            font-size: 32px;
-            margin: 20px 0;
+            font-size: 30px;
+            margin: 16px 0;
             animation: emojiPulse 1.5s infinite;
         }
 
@@ -574,56 +625,76 @@
             50% { transform: scale(1.1); }
         }
         
-        /* Улучшенные медиа-запросы */
+        /* 425px и меньше */
         @media (max-width: 425px) {
+            body {
+                padding: 6px;
+            }
+            
             .screen {
-                padding: 10px;
+                padding: 6px;
             }
             
             .container {
-                padding: 16px;
-                border-radius: 18px;
+                padding: 14px;
+                max-height: 90vh;
             }
             
             h1 {
-                font-size: 1.4em;
-                margin-bottom: 16px;
-                padding: 0 5px;
+                font-size: 1.3em;
+                margin-bottom: 14px;
+                padding: 0 6px;
             }
             
             .btn {
-                padding: 14px 16px;
-                font-size: 14px;
-                min-height: 48px;
+                padding: 12px 14px;
+                font-size: 13.5px;
+                min-height: 46px;
             }
             
-            .main-photo {
-                height: 200px;
+            .btn span {
+                font-size: 15px;
+                min-width: 20px;
+            }
+            
+            .nav-buttons {
+                gap: 7px;
+                margin-top: 14px;
+                max-height: 280px;
+            }
+            
+            .main-photo, .backup-image {
+                height: 180px;
+                margin: 12px 0;
             }
             
             .main-video video {
-                height: 160px;
+                height: 150px;
+                margin: 12px 0;
             }
             
             .message, .welcome-message {
-                padding: 16px;
-                margin: 12px 0;
+                padding: 14px;
+                margin: 10px 0;
             }
             
             .message h2, .welcome-message h2 {
                 font-size: 1.1em;
+                margin-bottom: 7px;
             }
             
             .message p, .welcome-message p {
-                font-size: 14px;
+                font-size: 13.5px;
             }
             
             .memory-game {
                 gap: 6px;
+                margin: 12px 0;
             }
             
             .memory-card {
-                border-radius: 8px;
+                min-height: 70px;
+                border-radius: 7px;
             }
             
             .memory-card::before {
@@ -635,57 +706,219 @@
             }
             
             .game-stats {
-                font-size: 13px;
-                padding: 8px 12px;
+                font-size: 12.5px;
+                padding: 7px 10px;
+                margin-bottom: 12px;
+            }
+            
+            .game-stats div {
+                min-width: 68px;
             }
             
             .backup-image {
-                height: 200px;
-                padding: 15px;
+                height: 180px;
+                padding: 14px;
             }
             
             .backup-image span {
                 font-size: 32px;
             }
-        }
-        
-        @media (max-width: 375px) {
-            h1 {
-                font-size: 1.3em;
+            
+            .message ul {
+                font-size: 13px;
+                padding-left: 16px;
             }
             
-            .main-photo {
-                height: 180px;
+            .emoji-animation {
+                font-size: 28px;
+                margin: 14px 0;
+            }
+            
+            .progress-bar {
+                margin: 12px 0;
+            }
+        }
+        
+        /* 375px и меньше */
+        @media (max-width: 375px) {
+            .container {
+                padding: 12px;
+                border-radius: 16px;
+            }
+            
+            h1 {
+                font-size: 1.2em;
+                margin-bottom: 12px;
+            }
+            
+            .btn {
+                padding: 11px 12px;
+                font-size: 13px;
+                min-height: 44px;
+            }
+            
+            .btn span {
+                font-size: 14px;
+                min-width: 18px;
+            }
+            
+            .nav-buttons {
+                gap: 6px;
+                margin-top: 12px;
+                max-height: 260px;
+            }
+            
+            .main-photo, .backup-image {
+                height: 170px;
             }
             
             .main-video video {
                 height: 140px;
             }
             
-            .backup-image {
-                height: 180px;
+            .message, .welcome-message {
+                padding: 12px;
+                margin: 8px 0;
             }
-        }
-        
-        /* Специальные стили для очень маленьких экранов */
-        @media (max-width: 320px) {
-            .container {
+            
+            .message p, .welcome-message p {
+                font-size: 13px;
+            }
+            
+            .memory-card {
+                min-height: 65px;
+                border-radius: 6px;
+            }
+            
+            .memory-card::before {
+                font-size: 16px;
+            }
+            
+            .memory-card .emoji {
+                font-size: 18px;
+            }
+            
+            .game-stats {
+                font-size: 12px;
+                padding: 6px 9px;
+            }
+            
+            .game-stats div {
+                min-width: 65px;
+            }
+            
+            .backup-image {
+                height: 170px;
                 padding: 12px;
             }
             
+            .backup-image span {
+                font-size: 30px;
+            }
+            
+            .backup-image p {
+                font-size: 13px;
+            }
+            
+            .emoji-animation {
+                font-size: 26px;
+                margin: 12px 0;
+            }
+        }
+        
+        /* 320px и меньше - очень маленькие экраны */
+        @media (max-width: 320px) {
+            .container {
+                padding: 10px;
+                border-radius: 14px;
+            }
+            
             h1 {
-                font-size: 1.2em;
+                font-size: 1.1em;
+                padding: 0 4px;
             }
             
             .btn {
-                padding: 12px 14px;
-                font-size: 13px;
-                min-height: 44px;
+                padding: 10px 12px;
+                font-size: 12.5px;
+                min-height: 42px;
             }
             
-            .memory-game {
-                gap: 4px;
+            .btn span {
+                font-size: 13px;
+                min-width: 16px;
             }
+            
+            .nav-buttons {
+                max-height: 240px;
+            }
+            
+            .main-photo, .backup-image {
+                height: 160px;
+            }
+            
+            .main-video video {
+                height: 130px;
+            }
+            
+            .memory-card {
+                min-height: 60px;
+            }
+            
+            .memory-card::before {
+                font-size: 15px;
+            }
+            
+            .memory-card .emoji {
+                font-size: 17px;
+            }
+            
+            .game-stats {
+                font-size: 11.5px;
+            }
+            
+            .backup-image span {
+                font-size: 28px;
+            }
+        }
+        
+        /* Для очень высоких контейнеров добавляем прокрутку */
+        @media (max-height: 650px) {
+            .container {
+                max-height: 85vh;
+                overflow-y: auto;
+            }
+        }
+        
+        /* Улучшение для тач-устройств */
+        @media (hover: none) and (pointer: coarse) {
+            .btn, .memory-card {
+                min-height: 48px;
+            }
+            
+            .btn {
+                padding: 14px 16px;
+            }
+            
+            /* Увеличиваем область нажатия */
+            button, [role="button"] {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+        
+        /* Уменьшение анимаций если пользователь предпочитает */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Убираем подсветку при нажатии на мобильных */
+        * {
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -702,7 +935,7 @@
                 <h2>С Днём Рождения! 🎂✨</h2>
                 <p>Дорогая моя, я создал для тебя этот небольшой сюрприз, чтобы показать, как сильно ты для меня значишь.</p>
                 <p>Здесь ты найдёшь нашу фотографию, видео, небольшую игру и мои самые искренние слова для тебя.</p>
-                <p style="color: #ff6b6b; font-weight: bold; margin-top: 12px;">Ты - самое прекрасное, что есть в моей жизни! 💝</p>
+                <p style="color: #ff6b6b; font-weight: bold; margin-top: 10px;">Ты - самое прекрасное, что есть в моей жизни! 💝</p>
             </div>
 
             <div class="progress-bar">
@@ -923,12 +1156,12 @@
             const heartsContainer = document.getElementById('hearts');
             const hearts = ['💖', '💝', '💕', '💞', '💓', '💗', '🥰', '😍', '❤️', '💘', '✨', '🌟'];
             
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 12; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = (Math.random() * 12 + 16) + 'px';
+                heart.style.fontSize = (Math.random() * 12 + 14) + 'px';
                 heart.style.opacity = '0';
                 heart.style.animationDelay = Math.random() * 5 + 's';
                 heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
@@ -939,10 +1172,10 @@
         // Создаем плавающие фигуры для фона
         function createFloatingShapes() {
             const container = document.getElementById('floatingShapes');
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 8; i++) {
                 const shape = document.createElement('div');
                 shape.className = 'shape';
-                shape.style.width = Math.random() * 30 + 15 + 'px';
+                shape.style.width = Math.random() * 25 + 10 + 'px';
                 shape.style.height = shape.style.width;
                 shape.style.left = Math.random() * 100 + 'vw';
                 shape.style.background = `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`;
@@ -985,6 +1218,12 @@
                 
                 // Создаём сердечки при переходах
                 createHeartsBatch(2);
+                
+                // Прокручиваем контейнер вверх
+                const container = newElement.querySelector('.container');
+                if (container) {
+                    container.scrollTop = 0;
+                }
             }, 50);
         }
 
@@ -1000,7 +1239,7 @@
         function createFireworks() {
             const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#feca57', '#ff9ff3', '#f368e0', '#667eea'];
             
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     const firework = document.createElement('div');
                     firework.className = 'firework';
@@ -1026,7 +1265,7 @@
                     heart.className = 'heart';
                     heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                     heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.fontSize = (Math.random() * 16 + 20) + 'px';
+                    heart.style.fontSize = (Math.random() * 12 + 18) + 'px';
                     heart.style.opacity = '0';
                     heart.style.animationDelay = '0s';
                     heart.style.animationDuration = '1.5s';
@@ -1105,7 +1344,7 @@
                                         document.getElementById('finalTime').textContent = gameTimer;
                                         document.getElementById('gameMessage').classList.remove('hidden');
                                         createFireworks();
-                                        createHeartsBatch(8);
+                                        createHeartsBatch(6);
                                     }
                                 } else {
                                     // Не совпали
@@ -1135,17 +1374,41 @@
             initMemoryGame();
         }
 
+        // Функция для адаптации макета
+        function adjustLayoutForScreen() {
+            const screenHeight = window.innerHeight;
+            const screenWidth = window.innerWidth;
+            
+            // Настраиваем высоту контейнера
+            const containers = document.querySelectorAll('.container');
+            containers.forEach(container => {
+                container.style.maxHeight = (screenHeight * 0.85) + 'px';
+            });
+            
+            // Настраиваем высоту навигационных кнопок
+            if (screenHeight < 700) {
+                const navButtons = document.querySelectorAll('.nav-buttons');
+                navButtons.forEach(nav => {
+                    nav.style.maxHeight = (screenHeight * 0.35) + 'px';
+                });
+            }
+        }
+
         // Инициализация при загрузке
         window.addEventListener('DOMContentLoaded', () => {
             createHearts();
             createFloatingShapes();
             createFireworks();
+            adjustLayoutForScreen();
             
             // Автозапуск игры если открыт экран игры
             if (currentScreen === 'screen4') {
                 setTimeout(() => initMemoryGame(), 500);
             }
         });
+
+        // Обработка изменения размера окна
+        window.addEventListener('resize', adjustLayoutForScreen);
 
         // Добавляем возможность свайпа (для мобильных)
         let touchStartX = 0;
@@ -1198,15 +1461,12 @@
             lastTouchEnd = now;
         }, false);
         
-        // Оптимизация для старых устройств
-        if ('scrollBehavior' in document.documentElement.style) {
-            // Браузер поддерживает плавную прокрутку
-        } else {
-            // Для старых браузеров
-            const smoothScroll = (element) => {
-                element.scrollIntoView({ behavior: 'smooth' });
-            };
-        }
+        // Предотвращаем контекстное меню на кнопках
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.classList.contains('btn') || e.target.classList.contains('memory-card')) {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
