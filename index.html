@@ -10,35 +10,75 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            touch-action: manipulation;
+            padding: 10px;
             position: relative;
-            padding: 8px;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-                radial-gradient(circle at 60% 10%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                radial-gradient(circle at 90% 40%, rgba(255, 255, 255, 0.1) 3px, transparent 3px);
-            background-size: 50px 50px;
-            z-index: -1;
-            animation: twinkle 8s ease-in-out infinite;
+        /* Компьютерный фон (только для больших экранов) */
+        @media (min-width: 768px) {
+            body {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            }
+            
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: 
+                    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+                    radial-gradient(circle at 60% 10%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                    radial-gradient(circle at 90% 40%, rgba(255, 255, 255, 0.1) 3px, transparent 3px);
+                background-size: 50px 50px;
+                z-index: -1;
+                animation: twinkle 8s ease-in-out infinite;
+            }
+
+            .hearts {
+                display: block;
+            }
+            
+            .floating-shapes {
+                display: block;
+            }
+        }
+
+        /* Мобильный фон (для маленьких экранов) */
+        @media (max-width: 767px) {
+            body {
+                background: white;
+            }
+            
+            .hearts {
+                display: none;
+            }
+            
+            .floating-shapes {
+                display: none;
+            }
+            
+            .container {
+                background: rgba(255, 255, 255, 0.95);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                border: none;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+            
+            .btn {
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            }
         }
 
         @keyframes twinkle {
@@ -50,7 +90,7 @@
             display: none;
             width: 100%;
             min-height: 100vh;
-            padding: 8px;
+            padding: 10px;
             align-items: center;
             justify-content: center;
         }
@@ -66,8 +106,8 @@
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 18px;
-            padding: 18px;
+            border-radius: 20px;
+            padding: 20px;
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -77,8 +117,9 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             animation: containerFloat 3s ease-in-out infinite;
             margin: 0 auto;
-            max-height: 85vh;
+            max-height: 90vh;
             overflow-y: auto;
+            position: relative;
         }
 
         .container::-webkit-scrollbar {
@@ -133,19 +174,23 @@
         }
 
         h1 {
-            color: white;
-            margin-bottom: 16px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
             font-size: 1.5em;
             text-shadow: 
-                0 2px 10px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(255, 255, 255, 0.2);
-            background: linear-gradient(45deg, #fff, #ffe6f2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: titleGlow 3s ease-in-out infinite alternate;
-            padding: 0 8px;
+                0 2px 10px rgba(0, 0, 0, 0.1);
             line-height: 1.3;
+            padding: 0 10px;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                background: linear-gradient(45deg, #fff, #ffe6f2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                animation: titleGlow 3s ease-in-out infinite alternate;
+            }
         }
 
         @keyframes titleGlow {
@@ -158,86 +203,49 @@
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 14px 16px;
-            font-size: 14.5px;
+            padding: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 
-                0 4px 15px rgba(255, 107, 107, 0.4),
+                0 4px 15px rgba(255, 107, 107, 0.3),
                 inset 0 -2px 0 rgba(0,0,0,0.1);
-            margin: 6px 0;
+            margin: 8px 0;
             width: 100%;
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            min-height: 48px;
-            -webkit-tap-highlight-color: transparent;
+            gap: 10px;
+            min-height: 50px;
             user-select: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .btn span {
-            font-size: 16px;
-            min-width: 22px;
+            font-size: 18px;
+            min-width: 24px;
             display: inline-block;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
         .btn:hover, .btn:active {
-            transform: translateY(-2px) scale(1.02);
+            transform: translateY(-2px);
             box-shadow: 
-                0 8px 20px rgba(255, 107, 107, 0.5),
+                0 6px 20px rgba(255, 107, 107, 0.4),
                 inset 0 -2px 0 rgba(0,0,0,0.1);
         }
 
         .btn:active {
-            transform: translateY(-1px) scale(0.98);
+            transform: translateY(0px);
         }
 
         .btn-secondary {
             background: linear-gradient(135deg, #4ecdc4, #6ae9e1);
-            box-shadow: 
-                0 4px 15px rgba(78, 205, 196, 0.4),
-                inset 0 -2px 0 rgba(0,0,0,0.1);
         }
 
-        .btn-secondary:hover {
-            box-shadow: 
-                0 8px 20px rgba(78, 205, 196, 0.5),
-                inset 0 -2px 0 rgba(0,0,0,0.1);
-        }
-
-        .btn- {
+        .btn-video {
             background: linear-gradient(135deg, #667eea, #764ba2);
-            box-shadow: 
-                0 4px 15px rgba(102, 126, 234, 0.4),
-                inset 0 -2px 0 rgba(0,0,0,0.1);
-        }
-
-        .btn-video:hover {
-            box-shadow: 
-                0 8px 20px rgba(102, 126, 234, 0.5),
-                inset 0 -2px 0 rgba(0,0,0,0.1);
         }
 
         .hidden {
@@ -261,47 +269,50 @@
 
         /* Большая фото-секция */
         .main-photo-container {
-            margin: 15px 0;
-            border-radius: 14px;
+            margin: 20px 0;
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: 
-                0 6px 18px rgba(0, 0, 0, 0.25),
-                0 0 0 2px rgba(255, 255, 255, 0.2);
+                0 8px 25px rgba(0, 0, 0, 0.2),
+                0 0 0 3px rgba(255, 255, 255, 0.3);
             transition: all 0.4s ease;
+            padding: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #667eea);
         }
 
         .main-photo-container:hover {
-            transform: rotateY(3deg) rotateX(1deg);
+            transform: scale(1.02);
             box-shadow: 
-                0 10px 25px rgba(0, 0, 0, 0.35),
-                0 0 0 2px rgba(255, 255, 255, 0.3);
+                0 12px 30px rgba(0, 0, 0, 0.3),
+                0 0 0 3px rgba(255, 255, 255, 0.4);
         }
 
         .main-photo {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             display: block;
+            border-radius: 14px;
             transition: transform 0.6s ease;
         }
 
         .main-photo:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         .main-video {
-            margin: 15px 0;
-            border-radius: 14px;
+            margin: 20px 0;
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: 
-                0 6px 18px rgba(0, 0, 0, 0.25),
-                0 0 0 2px rgba(255, 255, 255, 0.2);
+                0 8px 25px rgba(0, 0, 0, 0.2),
+                0 0 0 3px rgba(255, 255, 255, 0.3);
             background: #000;
         }
 
         .main-video video {
             width: 100%;
-            height: 170px;
+            height: 200px;
             object-fit: cover;
             border-radius: 14px;
             display: block;
@@ -309,14 +320,15 @@
 
         .message {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 14px;
-            padding: 16px;
-            margin: 12px 0;
+            border-radius: 16px;
+            padding: 18px;
+            margin: 15px 0;
             box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.12),
+                0 4px 15px rgba(0, 0, 0, 0.1),
                 inset 0 1px 0 rgba(255,255,255,0.8);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .message::before {
@@ -330,55 +342,49 @@
         }
 
         .message h2 {
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 1.2em;
+            color: #ff6b6b;
+            margin-bottom: 12px;
+            font-size: 1.3em;
             line-height: 1.3;
         }
 
         .message p {
             color: #555;
-            line-height: 1.5;
-            font-size: 14px;
-            margin-bottom: 6px;
+            line-height: 1.6;
+            font-size: 15px;
+            margin-bottom: 8px;
         }
 
         .welcome-message {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 14px;
-            padding: 16px;
-            margin: 12px 0;
+            border-radius: 16px;
+            padding: 18px;
+            margin: 15px 0;
             box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.12),
+                0 4px 15px rgba(0, 0, 0, 0.1),
                 inset 0 1px 0 rgba(255,255,255,0.8);
             animation: slideUp 0.8s ease-out;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .welcome-message h2 {
             color: #ff6b6b;
-            margin-bottom: 10px;
-            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-size: 1.3em;
         }
 
-        .welcome-message p {
-            color: #555;
-            line-height: 1.5;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        /* Улучшенная мини-игра */
+        /* Мини-игра */
         .memory-game {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 15px 0;
+            gap: 10px;
+            margin: 20px 0;
         }
 
         .memory-card {
             aspect-ratio: 1;
             background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -387,20 +393,20 @@
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             box-shadow: 
-                0 3px 10px rgba(0, 0, 0, 0.15),
+                0 4px 15px rgba(0, 0, 0, 0.15),
                 inset 0 -2px 5px rgba(0,0,0,0.1);
-            min-height: 75px;
+            min-height: 80px;
         }
 
         .memory-card::before {
             content: '💝';
             position: absolute;
-            font-size: 20px;
+            font-size: 24px;
             backface-visibility: hidden;
         }
 
         .memory-card .emoji {
-            font-size: 22px;
+            font-size: 26px;
             backface-visibility: hidden;
             transform: rotateY(180deg);
             opacity: 0;
@@ -420,7 +426,7 @@
             transform: rotateY(180deg) scale(0.95);
             background: linear-gradient(135deg, #4ecdc4, #6ae9e1);
             box-shadow: 
-                0 0 15px rgba(78, 205, 196, 0.6),
+                0 0 20px rgba(78, 205, 196, 0.6),
                 inset 0 -2px 5px rgba(0,0,0,0.1);
         }
 
@@ -428,29 +434,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            margin-bottom: 20px;
             color: white;
-            font-size: 13px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 12px;
+            font-size: 14px;
+            background: rgba(255, 107, 107, 0.9);
+            padding: 10px 15px;
             border-radius: 50px;
             backdrop-filter: blur(10px);
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 10px;
         }
 
         .game-stats div {
             flex: 1;
-            min-width: 70px;
+            min-width: 80px;
             text-align: center;
-            padding: 4px;
+            padding: 5px;
         }
 
         .game-stats span {
             font-weight: 600;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
             display: inline-block;
-            min-width: 18px;
+            min-width: 20px;
         }
 
         #gameMessage {
@@ -466,29 +471,13 @@
         .nav-buttons {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-top: 16px;
+            gap: 10px;
+            margin-top: 20px;
             width: 100%;
-            max-height: 300px;
-            overflow-y: auto;
-            padding-right: 4px;
+            max-height: none;
+            overflow-y: visible;
         }
 
-        .nav-buttons::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .nav-buttons::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-        }
-
-        .nav-buttons::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
-        }
-
-        /* Салют */
         .firework {
             position: fixed;
             width: 6px;
@@ -518,10 +507,10 @@
 
         .progress-bar {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            margin: 15px 0;
+            border-radius: 4px;
+            margin: 20px 0;
             overflow: hidden;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
@@ -529,7 +518,7 @@
         .progress {
             height: 100%;
             background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #667eea);
-            border-radius: 3px;
+            border-radius: 4px;
             transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -574,7 +563,7 @@
         /* Запасное изображение */
         .backup-image {
             width: 100%;
-            height: 200px;
+            height: 220px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
             flex-direction: column;
@@ -582,19 +571,19 @@
             align-items: center;
             color: white;
             text-align: center;
-            padding: 16px;
-            border-radius: 14px;
+            padding: 20px;
+            border-radius: 16px;
         }
         
         .backup-image span {
-            font-size: 34px;
-            margin-bottom: 8px;
+            font-size: 40px;
+            margin-bottom: 10px;
         }
         
         .backup-image p {
-            font-size: 14px;
+            font-size: 16px;
             opacity: 0.9;
-            margin: 4px 0;
+            margin: 5px 0;
             line-height: 1.4;
         }
         
@@ -602,21 +591,21 @@
         .message ul {
             text-align: left;
             color: #555;
-            line-height: 1.5;
-            padding-left: 18px;
-            margin: 8px 0;
-            font-size: 13.5px;
+            line-height: 1.6;
+            padding-left: 20px;
+            margin: 10px 0;
+            font-size: 15px;
         }
         
         .message li {
-            margin-bottom: 5px;
-            padding-left: 6px;
+            margin-bottom: 8px;
+            padding-left: 8px;
         }
         
         /* Эмодзи анимация */
         .emoji-animation {
-            font-size: 30px;
-            margin: 16px 0;
+            font-size: 35px;
+            margin: 20px 0;
             animation: emojiPulse 1.5s infinite;
         }
 
@@ -624,289 +613,125 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
-        
-        /* 425px и меньше */
-        @media (max-width: 425px) {
+
+        /* Специальные стили для мобильных */
+        @media (max-width: 767px) {
             body {
-                padding: 6px;
+                padding: 5px;
+                background: white;
+                align-items: flex-start;
+                padding-top: 10px;
             }
             
             .screen {
-                padding: 6px;
+                min-height: auto;
+                padding: 5px;
             }
             
             .container {
-                padding: 14px;
-                max-height: 90vh;
+                padding: 15px;
+                max-height: none;
+                min-height: auto;
+                overflow-y: visible;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                border: 1px solid rgba(0,0,0,0.05);
+                animation: none;
+                background: white;
             }
             
             h1 {
-                font-size: 1.3em;
-                margin-bottom: 14px;
-                padding: 0 6px;
-            }
-            
-            .btn {
-                padding: 12px 14px;
-                font-size: 13.5px;
-                min-height: 46px;
-            }
-            
-            .btn span {
-                font-size: 15px;
-                min-width: 20px;
-            }
-            
-            .nav-buttons {
-                gap: 7px;
-                margin-top: 14px;
-                max-height: 280px;
-            }
-            
-            .main-photo, .backup-image {
-                height: 180px;
-                margin: 12px 0;
-            }
-            
-            .main-video video {
-                height: 150px;
-                margin: 12px 0;
-            }
-            
-            .message, .welcome-message {
-                padding: 14px;
-                margin: 10px 0;
-            }
-            
-            .message h2, .welcome-message h2 {
-                font-size: 1.1em;
-                margin-bottom: 7px;
-            }
-            
-            .message p, .welcome-message p {
-                font-size: 13.5px;
-            }
-            
-            .memory-game {
-                gap: 6px;
-                margin: 12px 0;
-            }
-            
-            .memory-card {
-                min-height: 70px;
-                border-radius: 7px;
-            }
-            
-            .memory-card::before {
-                font-size: 18px;
-            }
-            
-            .memory-card .emoji {
-                font-size: 20px;
-            }
-            
-            .game-stats {
-                font-size: 12.5px;
-                padding: 7px 10px;
-                margin-bottom: 12px;
-            }
-            
-            .game-stats div {
-                min-width: 68px;
-            }
-            
-            .backup-image {
-                height: 180px;
-                padding: 14px;
-            }
-            
-            .backup-image span {
-                font-size: 32px;
-            }
-            
-            .message ul {
-                font-size: 13px;
-                padding-left: 16px;
-            }
-            
-            .emoji-animation {
-                font-size: 28px;
-                margin: 14px 0;
-            }
-            
-            .progress-bar {
-                margin: 12px 0;
-            }
-        }
-        
-        /* 375px и меньше */
-        @media (max-width: 375px) {
-            .container {
-                padding: 12px;
-                border-radius: 16px;
-            }
-            
-            h1 {
-                font-size: 1.2em;
-                margin-bottom: 12px;
-            }
-            
-            .btn {
-                padding: 11px 12px;
-                font-size: 13px;
-                min-height: 44px;
-            }
-            
-            .btn span {
-                font-size: 14px;
-                min-width: 18px;
-            }
-            
-            .nav-buttons {
-                gap: 6px;
-                margin-top: 12px;
-                max-height: 260px;
-            }
-            
-            .main-photo, .backup-image {
-                height: 170px;
-            }
-            
-            .main-video video {
-                height: 140px;
-            }
-            
-            .message, .welcome-message {
-                padding: 12px;
-                margin: 8px 0;
-            }
-            
-            .message p, .welcome-message p {
-                font-size: 13px;
-            }
-            
-            .memory-card {
-                min-height: 65px;
-                border-radius: 6px;
-            }
-            
-            .memory-card::before {
-                font-size: 16px;
-            }
-            
-            .memory-card .emoji {
-                font-size: 18px;
-            }
-            
-            .game-stats {
-                font-size: 12px;
-                padding: 6px 9px;
-            }
-            
-            .game-stats div {
-                min-width: 65px;
-            }
-            
-            .backup-image {
-                height: 170px;
-                padding: 12px;
-            }
-            
-            .backup-image span {
-                font-size: 30px;
-            }
-            
-            .backup-image p {
-                font-size: 13px;
-            }
-            
-            .emoji-animation {
-                font-size: 26px;
-                margin: 12px 0;
-            }
-        }
-        
-        /* 320px и меньше - очень маленькие экраны */
-        @media (max-width: 320px) {
-            .container {
-                padding: 10px;
-                border-radius: 14px;
-            }
-            
-            h1 {
-                font-size: 1.1em;
-                padding: 0 4px;
-            }
-            
-            .btn {
-                padding: 10px 12px;
-                font-size: 12.5px;
-                min-height: 42px;
-            }
-            
-            .btn span {
-                font-size: 13px;
-                min-width: 16px;
-            }
-            
-            .nav-buttons {
-                max-height: 240px;
-            }
-            
-            .main-photo, .backup-image {
-                height: 160px;
-            }
-            
-            .main-video video {
-                height: 130px;
-            }
-            
-            .memory-card {
-                min-height: 60px;
-            }
-            
-            .memory-card::before {
-                font-size: 15px;
-            }
-            
-            .memory-card .emoji {
-                font-size: 17px;
-            }
-            
-            .game-stats {
-                font-size: 11.5px;
-            }
-            
-            .backup-image span {
-                font-size: 28px;
-            }
-        }
-        
-        /* Для очень высоких контейнеров добавляем прокрутку */
-        @media (max-height: 650px) {
-            .container {
-                max-height: 85vh;
-                overflow-y: auto;
-            }
-        }
-        
-        /* Улучшение для тач-устройств */
-        @media (hover: none) and (pointer: coarse) {
-            .btn, .memory-card {
-                min-height: 48px;
+                font-size: 1.4em;
+                color: #ff6b6b;
+                margin-bottom: 15px;
             }
             
             .btn {
                 padding: 14px 16px;
+                font-size: 14.5px;
+                min-height: 48px;
+                margin: 6px 0;
             }
             
-            /* Увеличиваем область нажатия */
-            button, [role="button"] {
-                min-height: 44px;
-                min-width: 44px;
+            .btn span {
+                font-size: 16px;
+            }
+            
+            .main-photo-container {
+                margin: 15px 0;
+                padding: 2px;
+            }
+            
+            .main-photo, .backup-image {
+                height: 200px;
+            }
+            
+            .main-video video {
+                height: 180px;
+            }
+            
+            .message, .welcome-message {
+                padding: 15px;
+                margin: 12px 0;
+            }
+            
+            .memory-game {
+                gap: 8px;
+                margin: 15px 0;
+            }
+            
+            .memory-card {
+                min-height: 70px;
+            }
+            
+            .nav-buttons {
+                gap: 8px;
+                margin-top: 15px;
+            }
+            
+            /* Убираем лишние тени и градиенты на мобильных для лучшей производительности */
+            .btn, .message, .welcome-message, .memory-card {
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             }
         }
-        
+
+        /* Очень маленькие телефоны */
+        @media (max-width: 360px) {
+            .container {
+                padding: 12px;
+            }
+            
+            h1 {
+                font-size: 1.2em;
+            }
+            
+            .btn {
+                padding: 12px 14px;
+                font-size: 14px;
+                min-height: 45px;
+            }
+            
+            .main-photo, .backup-image {
+                height: 180px;
+            }
+            
+            .memory-card {
+                min-height: 65px;
+            }
+            
+            .message, .welcome-message {
+                padding: 12px;
+            }
+        }
+
+        /* Высокие телефоны */
+        @media (min-height: 700px) and (max-width: 767px) {
+            .screen {
+                min-height: 100vh;
+                justify-content: flex-start;
+                padding-top: 20px;
+            }
+        }
+
         /* Уменьшение анимаций если пользователь предпочитает */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -914,11 +739,6 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
-        }
-        
-        /* Убираем подсветку при нажатии на мобильных */
-        * {
-            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -970,7 +790,6 @@
             </div>
 
             <div class="main-photo-container">
-                <!-- Замените "photo.jpg" на имя вашего файла с фото -->
                 <img src="photo.jpg" alt="Наше особенное фото" class="main-photo" onerror="showBackupImage(this)">
             </div>
 
@@ -999,7 +818,6 @@
             </div>
 
             <div class="main-video">
-                <!-- Замените "video.mp4" на имя вашего видеофайла -->
                 <video controls playsinline preload="metadata">
                     <source src="IMG_8618.MP4" type="video/mp4">
                     <source src="video.webm" type="video/webm">
@@ -1009,7 +827,7 @@
 
             <div class="message">
                 <p style="text-align: center; font-style: italic; color: #666;">
-                    "Надеюсь что когдато сможем такое видео заснять без какого либо ИИ"
+                    "Надеюсь что когда-то сможем такое видео заснять без какого-либо ИИ"
                 </p>
             </div>
 
@@ -1138,7 +956,6 @@
         let gameTimer = 0;
         let timerInterval = null;
 
-        // Функция для отображения запасного изображения
         function showBackupImage(imgElement) {
             const container = imgElement.parentElement;
             container.innerHTML = `
@@ -1151,37 +968,41 @@
             `;
         }
 
-        // Создаем плавающие сердца
+        // Создаем плавающие сердца только для компьютеров
         function createHearts() {
-            const heartsContainer = document.getElementById('hearts');
-            const hearts = ['💖', '💝', '💕', '💞', '💓', '💗', '🥰', '😍', '❤️', '💘', '✨', '🌟'];
-            
-            for (let i = 0; i < 12; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = (Math.random() * 12 + 14) + 'px';
-                heart.style.opacity = '0';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                heartsContainer.appendChild(heart);
+            if (window.innerWidth >= 768) {
+                const heartsContainer = document.getElementById('hearts');
+                const hearts = ['💖', '💝', '💕', '💞', '💓', '💗', '🥰', '😍', '❤️', '💘', '✨', '🌟'];
+                
+                for (let i = 0; i < 12; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.fontSize = (Math.random() * 12 + 14) + 'px';
+                    heart.style.opacity = '0';
+                    heart.style.animationDelay = Math.random() * 5 + 's';
+                    heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                    heartsContainer.appendChild(heart);
+                }
             }
         }
 
-        // Создаем плавающие фигуры для фона
+        // Создаем плавающие фигуры только для компьютеров
         function createFloatingShapes() {
-            const container = document.getElementById('floatingShapes');
-            for (let i = 0; i < 8; i++) {
-                const shape = document.createElement('div');
-                shape.className = 'shape';
-                shape.style.width = Math.random() * 25 + 10 + 'px';
-                shape.style.height = shape.style.width;
-                shape.style.left = Math.random() * 100 + 'vw';
-                shape.style.background = `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`;
-                shape.style.animationDelay = Math.random() * 10 + 's';
-                shape.style.animationDuration = Math.random() * 10 + 15 + 's';
-                container.appendChild(shape);
+            if (window.innerWidth >= 768) {
+                const container = document.getElementById('floatingShapes');
+                for (let i = 0; i < 8; i++) {
+                    const shape = document.createElement('div');
+                    shape.className = 'shape';
+                    shape.style.width = Math.random() * 25 + 10 + 'px';
+                    shape.style.height = shape.style.width;
+                    shape.style.left = Math.random() * 100 + 'vw';
+                    shape.style.background = `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`;
+                    shape.style.animationDelay = Math.random() * 10 + 's';
+                    shape.style.animationDuration = Math.random() * 10 + 15 + 's';
+                    container.appendChild(shape);
+                }
             }
         }
 
@@ -1216,13 +1037,15 @@
                     initMemoryGame();
                 }
                 
-                // Создаём сердечки при переходах
-                createHeartsBatch(2);
-                
                 // Прокручиваем контейнер вверх
                 const container = newElement.querySelector('.container');
                 if (container) {
                     container.scrollTop = 0;
+                }
+                
+                // На мобильных немного прокручиваем страницу вверх
+                if (window.innerWidth <= 767) {
+                    window.scrollTo(0, 0);
                 }
             }, 50);
         }
@@ -1251,28 +1074,6 @@
                     
                     setTimeout(() => firework.remove(), 1000);
                 }, i * 50);
-            }
-        }
-
-        // Создание партии сердец
-        function createHeartsBatch(count) {
-            const heartsContainer = document.getElementById('hearts');
-            const hearts = ['💖', '💝', '💕', '💞'];
-            
-            for (let i = 0; i < count; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart';
-                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.fontSize = (Math.random() * 12 + 18) + 'px';
-                    heart.style.opacity = '0';
-                    heart.style.animationDelay = '0s';
-                    heart.style.animationDuration = '1.5s';
-                    heartsContainer.appendChild(heart);
-                    
-                    setTimeout(() => heart.remove(), 1500);
-                }, i * 100);
             }
         }
 
@@ -1331,9 +1132,6 @@
                                         flippedCard.style.transform = 'rotateY(180deg) scale(0.95)';
                                     });
                                     
-                                    // Анимация совпадения
-                                    createHeartsBatch(2);
-                                    
                                     flippedCards = [];
                                     foundPairs++;
                                     document.getElementById('found').textContent = foundPairs;
@@ -1344,7 +1142,6 @@
                                         document.getElementById('finalTime').textContent = gameTimer;
                                         document.getElementById('gameMessage').classList.remove('hidden');
                                         createFireworks();
-                                        createHeartsBatch(6);
                                     }
                                 } else {
                                     // Не совпали
@@ -1374,22 +1171,19 @@
             initMemoryGame();
         }
 
-        // Функция для адаптации макета
-        function adjustLayoutForScreen() {
-            const screenHeight = window.innerHeight;
-            const screenWidth = window.innerWidth;
+        // Адаптация под разные устройства
+        function adjustForDevice() {
+            const isMobile = window.innerWidth <= 767;
             
-            // Настраиваем высоту контейнера
-            const containers = document.querySelectorAll('.container');
-            containers.forEach(container => {
-                container.style.maxHeight = (screenHeight * 0.85) + 'px';
-            });
-            
-            // Настраиваем высоту навигационных кнопок
-            if (screenHeight < 700) {
-                const navButtons = document.querySelectorAll('.nav-buttons');
-                navButtons.forEach(nav => {
-                    nav.style.maxHeight = (screenHeight * 0.35) + 'px';
+            // На мобильных убираем сложные анимации
+            if (isMobile) {
+                document.querySelectorAll('.container').forEach(container => {
+                    container.style.animation = 'none';
+                });
+                
+                // Увеличиваем кнопки для удобного нажатия
+                document.querySelectorAll('.btn').forEach(btn => {
+                    btn.style.minHeight = '50px';
                 });
             }
         }
@@ -1398,44 +1192,36 @@
         window.addEventListener('DOMContentLoaded', () => {
             createHearts();
             createFloatingShapes();
-            createFireworks();
-            adjustLayoutForScreen();
+            adjustForDevice();
             
-            // Автозапуск игры если открыт экран игры
+            // На мобильных убираем начальные анимации для скорости
+            if (window.innerWidth <= 767) {
+                setTimeout(() => createFireworks(), 1000);
+            } else {
+                createFireworks();
+            }
+            
             if (currentScreen === 'screen4') {
                 setTimeout(() => initMemoryGame(), 500);
             }
         });
 
         // Обработка изменения размера окна
-        window.addEventListener('resize', adjustLayoutForScreen);
+        window.addEventListener('resize', adjustForDevice);
 
-        // Добавляем возможность свайпа (для мобильных)
+        // Простая навигация свайпом для мобильных
         let touchStartX = 0;
-        let touchStartY = 0;
-        let isSwiping = false;
-        
         document.addEventListener('touchstart', e => {
             touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-            isSwiping = true;
         }, {passive: true});
         
-        document.addEventListener('touchmove', e => {
-            if (!isSwiping) return;
-            e.preventDefault();
-        }, {passive: false});
-        
         document.addEventListener('touchend', e => {
-            if (!isSwiping) return;
+            if (window.innerWidth > 767) return;
             
             const touchEndX = e.changedTouches[0].screenX;
-            const touchEndY = e.changedTouches[0].screenY;
             const diffX = touchStartX - touchEndX;
-            const diffY = touchStartY - touchEndY;
             
-            // Если свайп по горизонтали больше чем по вертикали
-            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+            if (Math.abs(diffX) > 50) {
                 const screens = ['screen1', 'screen2', 'screen3', 'screen4', 'screen5', 'screen6'];
                 const currentIndex = screens.indexOf(currentScreen);
                 
@@ -1447,26 +1233,7 @@
                     showScreen(screens[currentIndex - 1]);
                 }
             }
-            
-            isSwiping = false;
         }, {passive: true});
-        
-        // Предотвращаем масштабирование на мобильных при двойном тапе
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(event) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-        
-        // Предотвращаем контекстное меню на кнопках
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.classList.contains('btn') || e.target.classList.contains('memory-card')) {
-                e.preventDefault();
-            }
-        });
     </script>
 </body>
 </html>
